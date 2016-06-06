@@ -64,7 +64,14 @@ are:
 Here are some examples of what SchemaType docs might look like, with JSON
 Schema (or plain text) equivalents:
 
-* CloudFoundry `manifest.yml`:
+* Simple Geo Coordinate object:
+  * [SchemaType](geo-coordinate.schema)
+  * [JSON-Schema](geo-coordinate.json-schema)
+* CloudFoundry `manifest.yml` files:
   * [SchemaType](./manifest.schema)
-
+  * No JSON-Schema. See [documentation](http://docs.pivotal.io/pivotalcf/1-7/devguide/deploy-apps/manifest.html)
+* NPM `package.json` files:
+  * [SchemaType](./manifest.schema)
+  * [JSON-Schema](package-json.json-schema.yaml) in YAML. (JSON is waaay to verbose)
+  * [JSON-Schema](package-json.json-schema) in JSON :-(
 
