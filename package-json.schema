@@ -1,0 +1,126 @@
+# See:
+# - http://json.schemastore.org/package (JSON-Schema file)
+# - https://docs.npmjs.com/files/package.json
+-name: package-json
+-desc: Schema for NPM package.json files
+-spec: schematype.org/v0.0.1/
+-import:
+  ++: github:schematype/core/ @v0.0.7
+  +%: github:schematype/%/ @v0.0.2
+
+
+/^_/: ++any --Any property starting with _ is valid.
+name: +./package-name --The name of the package.
+version: +code/semver
+  --Version must be parseable by node-semver, which is bundled with npm as a
+  dependency.
+description?: ++phrase
+  --This helps people discover your package, as it's listed in 'npm search'.
+keywords?: ++word[*]
+  --This helps people discover your package as it's listed in 'npm search'.
+homepage?: +net/uri --The url to the project homepage.
+bugs?: (+./bugs | +./bugs:url | +./bugs:email)
+  --The url to your project's issue tracker and / or the email address to which
+  issues should be reported. These are helpful for people who encounter issues
+  with your package.
+license?: +./license:type (:or licenses)
+  --The license type keyword.
+licenses?: +./license[+]
+  --A list of license/url objects.
+author?: +./person
+  --The author of this package.
+contributors?: +./person[+]
+  --A list of people who contributed to this package.
+maintainers?: +./person[+]
+  --A list of people who maintains this package.
+files?: +file/name[+]
+  --The 'files' field is an array of files to include in your project. If you
+  name a folder in the array, then it will also include the files inside that
+  folder.
+main?: ++word
+  --The main field is a module ID that is the primary entry point to your
+  program.
+bin?: (+file/relative-path | +bin)
+  --The bin scripts that this package provides.
+man?: +file/relative-path[+]?
+  --Specify either a single file or an array of filenames to put in place for
+  the man program to find.
+directories?:
+  bin?: +file/directory-name
+    --If you specify a 'bin' directory, then all the files in that folder will
+    be used as the 'bin' hash.
+  doc?: +file/directory-name
+  example?: +file/directory-name
+  lib?: +file/directory-name
+  man?: +file/directory-name
+  test?: +file/directory-name
+repository?:
+  -desc: Specify the place where your code lives. This is helpful for people who
+    want to contribute.
+  type: . [git svn hg]
+  url: +net/uri
+scripts?: +script-map
+config?: +config
+dependencies?: +./dependency-map
+devDependencies?: +./dependency-map
+optionalDependencies?: +./dependency-map
+peerDependencies?: +./dependency-map
+engines?: +engines-map
+engineStrict?: ++bool
+os?: /^\!?(darwin|linux|win32)$/[+!]
+cpu?: /^\!?(x64|ia32|arm|mips)$/[+!]
+preferGlobal?: ++bool
+private?: ++bool
+publishConfig?: ...
+dist?:
+  shasum: +code/sha1sum
+  tarball: +file/tarball
+readme?: +file/name
+(bundledDependencies|bundleDependencies)?: +./package-name[+]
+  --Array of package names that will be bundled when publishing the package.
+
+# Subschema definitions of +package-json/<subtype>
++package-name:
+  -base: ++word
+  -len: 1..214
+  -match: ^[^A-Z]+$
+
++bugs:
+  url: +net/uri (:or email)
+    --The url to your project's issue tracker.
+  email: +net/email
+    --The email address to which issues should be reported.
+
++person:
+  name: +human/name
+  url?: +net/uri
+  email?: +net/email
+
++license:
+  -desc:
+    You should specify a license for your package so that people know how they
+    are permitted to use it, and any restrictions you're placing on it.
+  type: ++word [MIT GPL Apache CC]
+  url: +net/uri
+
++bin:
+  :++word: +file/relative-path
+
++dependency-map:
+  -desc:
+    Dependencies are specified with a simple hash of package name to version
+    range. The version range is a string which has one or more space-separated
+    descriptors. Dependencies can also be identified with a tarball or git URL.
+  :+package-name: +version-range
+
++engines-map: ...
+
++script-map:
+  test?: +code/shell-command
+  start?: +code/shell-command
+  predeploy?: +code/shell-command
+  postdeploy?: +code/shell-command
+  prepublish?: +code/shell-command
+  :++word: +code/shell-command
+
++version-range: ...
