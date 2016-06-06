@@ -2,7 +2,7 @@
 #
 # See: http://docs.pivotal.io/pivotalcf/1-7/devguide/deploy-apps/manifest.html
 
--name: cf-manifest
+-name: manifest
 -desc: Schema for CloudFoundry's manifest.yml file
 -spec: schematype.org/v0.0.1/
 -import:

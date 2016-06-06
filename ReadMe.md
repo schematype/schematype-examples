@@ -68,10 +68,10 @@ Schema (or plain text) equivalents:
   * [SchemaType](geo-coordinate.schema)
   * [JSON-Schema](geo-coordinate.json-schema)
 * CloudFoundry `manifest.yml` files:
-  * [SchemaType](./manifest.schema)
+  * [SchemaType](manifest.schema)
   * No JSON-Schema. See [documentation](http://docs.pivotal.io/pivotalcf/1-7/devguide/deploy-apps/manifest.html)
+  * [Sample mainfest.yml file](manifest.yml)
 * NPM `package.json` files:
-  * [SchemaType](./manifest.schema)
+  * [SchemaType](package-json.schema)
   * [JSON-Schema](package-json.json-schema.yaml) in YAML. (JSON is waaay to verbose)
   * [JSON-Schema](package-json.json-schema) in JSON :-(
-
