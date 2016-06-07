@@ -40,6 +40,8 @@ graph, or more commonly: hashes, arrays and scalars. This includes:
 The primary goals of SchemaType are validation and programatic generation of
 structured data, but other use cases may be discovered.
 
+## Syntax Overview
+
 SchemaType aims to be concise and easy to read/write/maintain.  SchemaType
 documents are written in YAML with some DSL formatting. Some of the key points
 are:
@@ -54,6 +56,30 @@ are:
 * SchemaType is strict by default
   * Anything not defined is invalid
   * Keys ending with '?' are optional (default is required)
+
+## Compact Notation
+
+SchemaType DSL has 2 styles. Here are snippets of both:
+
+**Compact:**
+
+```
+website: +net/url /example.com/ --The website URL
+sanity: ++int -10..10 --The sanity level
+```
+
+**Verbose**:
+
+```
+website:
+  -type: +net/url
+  -match: /example.com/
+  -desc: The website URL
+sanity:
+  -type: ++int
+  -range: [-10, 10]
+  -desc: The sanity level
+```
 
 ## Language Design Goals
 
