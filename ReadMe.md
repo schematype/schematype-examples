@@ -64,7 +64,7 @@ SchemaType DSL has 2 styles. Here are snippets of both:
 
 ```
 website: +net/url /example.com/ --The website URL
-sanity: ++int -10..10 --The sanity level
+sanity: +num/int -10..10 --The sanity level
 ```
 
 **Verbose**:
@@ -75,7 +75,7 @@ website:
   -match: /example.com/
   -desc: The website URL
 sanity:
-  -type: ++int
+  -type: +num/int
   -range: [-10, 10]
   -desc: The sanity level
 ```
