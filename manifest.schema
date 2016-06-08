@@ -4,10 +4,9 @@
 
 -name: manifest
 -desc: Schema for CloudFoundry's manifest.yml file
--spec: schematype.org/v0.0.1/
+-spec: schematype.org/v0.0.1
 -import:
-  ++: github:schematype/core/ @v0.0.7
-  +%: github:schematype/%/ @v0.0.2
+  +%: github:schematype/schematype/%/#v0.0.1
 
 # Define the 'cf-manifest' schema:
 -base: +./shared
@@ -17,9 +16,9 @@ applications?: +./application[+]
 # Define the sub-types:
 +application:
   -base: +../shared
-  name: ++word
-  host?: ++word
-  hosts?: ++word[+]
+  name: +str/word
+  host?: +str/word
+  hosts?: +str/word[+]
   path?: +file/path
 
 +shared:
@@ -29,21 +28,21 @@ applications?: +./application[+]
   domain?: +net/domain-name
   domains?: +net/domain-name[+!]
   env:
-    :+sys/env-var-name: ++string-printable
+    :+sys/env-var-name: +str/printable
   health-check-type?:
     -enum: [none, port]
-  host?: ++word
-  hosts?: ++word[+!]
-  instances?: ++int 1..
+  host?: +str/word
+  hosts?: +str/word[+!]
+  instances?: +num/int/pos
   memory?: +./size
-  no-hostname: ++bool
-  no-route?: ++bool
+  no-hostname: +bool
+  no-route?: +bool
   path?: +file/directory-path
-  random-route?: ++bool
-  services?: ++word[+!]
-  stack?: ++word
+  random-route?: +bool
+  services?: +str/word[+!]
+  stack?: +str/word
   timeout?:
-    -base: ++int
+    -type: +num/int/pos
     -min: 1
 
   +size:

@@ -10,18 +10,17 @@ A Schema and Type data definition language for YAML and JSON
 -desc: Schema for https://www.ietf.org/rfc/rfc4627.txt (#8.1)
 -spec: schematype.org/v0.0.1
 -import:
-  ++: github:schematype/schematype/core/ @v0.0.1
-  +net: github:schematype/schematype/net/ @v0.0.1
+  +%: github:schematype/schematype/%/#v0.0.1
 
 Image:
-  Title: ++phrase 1..100
-  Height: ++int-pos
-  Width: ++int-pos
+  Title: +str/phrase 1..100
+  Height: +num/int/pos
+  Width: +num/int/pos
   Thumbnail?:
     Url: +net/url
-    Height: ++int-pos
-    Width: ++int-pos
-  IDs?: ++int-pos[*]
+    Height: +num/int/pos
+    Width: +num/int/pos
+  IDs?: +num/int/pos[*]
 ```
 
 ## Description
@@ -42,7 +41,7 @@ structured data, but other use cases may be discovered.
 
 ## Syntax Overview
 
-SchemaType aims to be concise and easy to read/write/maintain.  SchemaType
+SchemaType aims to be concise and easy to read/write/maintain. SchemaType
 documents are written in YAML with some DSL formatting. Some of the key points
 are:
 
@@ -101,3 +100,31 @@ Schema (or plain text) equivalents:
   * [SchemaType](package-json.schema)
   * [JSON-Schema](package-json.json-schema.yaml) in YAML. (JSON is waaay to verbose)
   * [JSON-Schema](package-json.json-schema) in JSON :-(
+
+## SchemaType vs JSON-Schema
+
+* The schematype definitions are *exact* as they import exact versioned used types
+* Things are defined at the same level as the instances
+with JSON schema the nesting to things of interest makes it unweildy
+* Constraints of types are always defined in proximity to the defintions
+
+  for example: https://github.com/schematype/schematype-examples/blob/master/package-json.json-schema.yaml#L351 defines what keys are required thats line 351, and they keys are defined at line 68
+
+* people using json-schema will define, say, a url field to be type 'string'
+
+  which is ludicrous
+  that makes the full text of War and Peace, a valid URL
+
+* JSON-Schema defines maybe a dozen string types, defines them in the spec
+
+  schematype defines only the most core types: any, str, num, float, int, bool
+  but they are never used in user schemas
+  they are the bases of things like url
+  defining your own types is strongly encouraged
+  schematype will define a std lib of types
+  but they are not special. not specced
+  and you can fork any of them
+  if you find a core type bug, you fork it, use it, maybe PR it
+  and then switch back if it goes upstream
+
+* JSON-Schema is not-strict by default. SchemaType must account for everything.

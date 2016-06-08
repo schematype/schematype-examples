@@ -1,9 +1,9 @@
 # Schema for a geographic coordinate:
--name: +geo-coordinate
+-name: geo-coordinate
 -spec: schematype.org/v0.0.1
 -desc: A geographical coordinate
 -import:
-  ++: github:schematype/schematype/core @v0.0.1
+  +%: github:schematype/schematype/%/#v0.0.1
 
-latitude: ++number -90..90
-longitude: ++number -180..180
+latitude: +num/float -90..90
+longitude: +num/float -180..180
