@@ -117,7 +117,7 @@ with JSON schema the nesting to things of interest makes it unweildy
 
 * JSON-Schema defines maybe a dozen string types, defines them in the spec
 
-  schematype defines only the most core types: any, str, num, float, int, bool
+  schematype defines only the most core types: any, str, num, bool, null
   but they are never used in user schemas
   they are the bases of things like url
   defining your own types is strongly encouraged
